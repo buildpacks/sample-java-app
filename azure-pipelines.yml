@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: Ubuntu 16.04
+
+
+stages:
+- stage: stage
+  variables:
+    sshKeySecureFile: "id_rsa"
+    sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeIMtSDkCWM0p4LjF9xp5OYgeMDGHdawpvu6ll7zGG85GU9Ws2M5PHjUymfEC9Y56apcm+8uCQVhvDigTsZVv3YOEAOFCSMYNMHUKubp43iD3abvcW79lTukrB0LRm0X9Fsf+mfzHeCxj3Y61zh+G/yeHhn/nIQZfahxNj4FLGHxPkK/W6YSgCqSJgXOi0so9RYHm6pEA3zSfvTpd2jONcm3vb+B9PP8SIe+ec/D4A+zyvToaeseLDSVSkyOdpw0f522GWt/2oVWSHQ6/APHewi8ZTEqnCZ0iN8q3RXLpjKVIeO4YpK8sBncHFd1OImSeoUdAgCqIk4Ivtugug0UKP v-memeng@microsoft.com"
+  jobs:
+  - job: job
+    steps:
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: known_hosts
+        sshPublicKey: $(sshPublicKey)
+        sshKeySecureFile: $(sshKeySecureFile)
